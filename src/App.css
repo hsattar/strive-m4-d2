@@ -3,3 +3,9 @@
   max-height: 375px;
   object-fit: cover;
 }
+
+select {
+  border: 1px solid #3e3e3e;
+  border-radius: 0.25rem;
+  padding: 0.5em;
+}
