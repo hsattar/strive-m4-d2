@@ -1,0 +1,5 @@
+.book-cover {
+  min-height: 375px;
+  max-height: 375px;
+  object-fit: cover;
+}
