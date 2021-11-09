@@ -4,18 +4,16 @@ import historyBooks from '../data/history.json'
 import fantasyBooks from '../data/fantasy.json'
 import romanceBooks from '../data/romance.json'
 import scifiBooks from '../data/scifi.json'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+import { Container, Row } from 'react-bootstrap'
 import BookCover from './BookCover'
 import FilterOptions from './FilterOptions'
-
-// TODO: RESULTS PER PAGE FILTER / MULTIPLE PAGES
 
 
 const LatestBooks = () => {
     
     const [category, setCategory] = useState('Horror')
     const [books, setBooks] = useState(horrorBooks)
+    const [amountOfBooks, setAmountOfBooks] = useState(25)
     // const [booksOrder, setBooksOrder] = useState(horrorBooks)
 
     const handleCategoryChange = (e) => {
@@ -46,22 +44,30 @@ const LatestBooks = () => {
     }
 
     const handleSearch = e => {
-        const filteredBooks = books.filter(book => book.title.toLowerCase().includes(e.target.value.toLowerCase()))
-        setBooks(filteredBooks)
+        if (e.target.value) {
+            const filteredBooks = books.filter(book => book.title.toLowerCase().includes(e.target.value.toLowerCase()))
+            setBooks(filteredBooks)
+        }
+    }
+
+    const handleResultsPerPage = (e) => {
+        setAmountOfBooks(e.target.value)
     }
 
     return (
         <Container>
             <FilterOptions
-            category={category} 
+            category={category}
+            amountOfBooks={amountOfBooks} 
             handleCategoryChange={handleCategoryChange} 
             handleSortOrder={handleSortOrder} 
             handleSearch={handleSearch}
+            handleResultsPerPage={handleResultsPerPage}
             />
-            <Row>
+            <Row className="justify-content-center">
                 {
-                    books.map(({asin, img}) => 
-                        <BookCover key={asin} bookImg={img} />
+                    books.map(({asin, img}, index) => 
+                        index < amountOfBooks && <BookCover key={asin} bookImg={img} />
                     )
                 }
             </Row>

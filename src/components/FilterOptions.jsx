@@ -1,6 +1,6 @@
 import { Row, FormControl } from "react-bootstrap"
 
-const FilterOptions = ({ category, handleCategoryChange, handleSortOrder, handleSearch}) => (
+const FilterOptions = ({ category, amountOfBooks, handleCategoryChange, handleSortOrder, handleSearch, handleResultsPerPage}) => (
     <>
         <Row>
             <FormControl className="mb-3 mx-3"
@@ -9,7 +9,7 @@ const FilterOptions = ({ category, handleCategoryChange, handleSortOrder, handle
             />
         </Row>
         <Row className="justify-content-between mb-3">
-            <h2 className="pl-3">Latest {category} Books</h2>
+            <h2 className="pl-3">{amountOfBooks} Latest {category} Books</h2>
             <div>
                 <select onChange={handleCategoryChange} name="category" id="category" className="mr-3">
                     <option value="horror">Horror</option>
@@ -18,11 +18,15 @@ const FilterOptions = ({ category, handleCategoryChange, handleSortOrder, handle
                     <option value="romance">Romance</option>
                     <option value="scifi">Sci-Fi</option>
                 </select>
-                <select onChange={handleSortOrder} name="category" id="category" className="mr-3">
-                    <option value="horror">Sort (A-Z)</option>
-                    <option value="history">Sort (Z-A)</option>
-                    <option value="fantasy">Sort (Price Low-High)</option>
-                    <option value="romance">Sort (Price High-Low)</option>
+                <select onChange={handleSortOrder} name="sort" id="sort" className="mr-3">
+                    <option value="a-z">Sort (A-Z)</option>
+                    <option value="z-a">Sort (Z-A)</option>
+                    <option value="low-high">Sort (Price Low-High)</option>
+                    <option value="high-low">Sort (Price High-Low)</option>
+                </select>
+                <select onChange={handleResultsPerPage} name="resultsAmount" id="resultsAmount" className="mr-3">
+                    <option value="25">25</option>
+                    <option value="50">50</option>
                 </select>
             </div>
         </Row>
