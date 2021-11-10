@@ -5,7 +5,8 @@ const FilterOptions = ({ category, searchQuery, amountOfBooks, handleCategoryCha
         <Row>
             <FormControl className="mb-3 mx-3"
             placeholder="Search A Book..."
-            onKeyUp={handleSearch}
+            onChange={handleSearch}
+            value={searchQuery}
             />
         </Row>
         <Row className="justify-content-between mb-3">

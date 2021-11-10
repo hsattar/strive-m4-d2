@@ -1,21 +1,21 @@
 import { useState } from 'react'
-import horrorBooks from '../data/horror.json'
-import historyBooks from '../data/history.json'
-import fantasyBooks from '../data/fantasy.json'
-import romanceBooks from '../data/romance.json'
-import scifiBooks from '../data/scifi.json'
+import horrorBooks from '../../data/horror.json'
+import historyBooks from '../../data/history.json'
+import fantasyBooks from '../../data/fantasy.json'
+import romanceBooks from '../../data/romance.json'
+import scifiBooks from '../../data/scifi.json'
 import { Container, Row } from 'react-bootstrap'
 import BookCover from './BookCover'
-import FilterOptions from './FilterOptions'
+import FilterOptions from '../FilterOptions'
 
 
 const LatestBooks = () => {
     
     const [category, setCategory] = useState('Horror')
-    const [searchQuery, setSearchQuery] = useState(null)
+    const [searchQuery, setSearchQuery] = useState('')
     const [books, setBooks] = useState(horrorBooks)
     const [amountOfBooks, setAmountOfBooks] = useState(24)
-    // const [booksOrder, setBooksOrder] = useState(horrorBooks)
+    const [bookOrder, setBookOrder] = useState('a-z')
 
     const handleCategoryChange = e => {
         setCategory(e.target.value.charAt(0).toUpperCase() + e.target.value.substr(1))
@@ -40,46 +40,43 @@ const LatestBooks = () => {
         }
     }
 
+    // TODO: TURN THIS CODE INTO A FUNCTION WITH DIFFERENT PARAMETERS INCLUDING ONE FOR REVERSE, SET DEFAULT TO FALSE 
+
+    const sortBookOrderLetters = (property, reverse = false) => {
+        const bookProperty = []
+        books.forEach(book => bookProperty.push(book[property]))
+        bookProperty.sort()
+        if (reverse) bookProperty.reverse()
+        const newBookOrder = []
+        bookProperty.forEach(bookValue => newBookOrder.push(books.find(book => book[property] === bookValue)))
+        return newBookOrder
+    }
+
+    const sortBookOrderNumbers = (property, reverse = false) => {
+        const bookProperty = []
+        books.forEach(book => bookProperty.push(book[property]))
+        bookProperty.sort((a, b) => a - b)
+        if (reverse) bookProperty.reverse()
+        const newBookOrder = []
+        bookProperty.forEach(bookValue => newBookOrder.push(books.find(book => book[property] === bookValue)))
+        return newBookOrder
+    }
+
     const handleSortOrder = e => {
+        setBookOrder(e.target.value)
         switch (e.target.value) {
             case 'a-z':
-                const azBookTitles = []
-                books.forEach(book => azBookTitles.push(book.title))
-                azBookTitles.sort()
-                const azNewBookOrder = []
-                azBookTitles.forEach(bookTitle => azNewBookOrder.push(books.find(({title}) => title === bookTitle)))
-                setBooks(azNewBookOrder)
+                setBooks(sortBookOrderLetters('title'))
             break;
             case 'z-a':
-                const zaBookTitles = []
-                books.forEach(book => zaBookTitles.push(book.title))
-                zaBookTitles.sort()
-                zaBookTitles.reverse()
-                const zaNewBookOrder = []
-                zaBookTitles.forEach(bookTitle => zaNewBookOrder.push(books.find(({title}) => title === bookTitle)))
-                setBooks(zaNewBookOrder)
+                setBooks(sortBookOrderLetters('title', true))
             break;
             case 'low-high':
-                const lhBookPrices = []
-                books.forEach(book => lhBookPrices.push(book.price))
-                lhBookPrices.sort()
-                console.log(lhBookPrices)
-                const lhNewBookOrder = []
-                lhBookPrices.forEach(bookPrice => lhNewBookOrder.push(books.find(({price}) => price === bookPrice)))
-                console.log(lhNewBookOrder)
-                setBooks(lhNewBookOrder)
+                setBooks(sortBookOrderNumbers('price'))
             break;
             case 'high-low':
-                const hlBookPrices = []
-                books.forEach(book => hlBookPrices.push(book.price))
-                hlBookPrices.sort()
-                hlBookPrices.reverse()
-                console.log(hlBookPrices)
-                const hlNewBookOrder = []
-                hlBookPrices.forEach(bookPrice => hlNewBookOrder.push(books.find(({price}) => price === bookPrice)))
-                console.log(hlNewBookOrder)
-                setBooks(hlNewBookOrder)
-                console.log(hlNewBookOrder)
+                setBooks(sortBookOrderNumbers('price', true))
+
             break;
             default: 
                 alert('Looks like something went wrong')
@@ -114,8 +111,8 @@ const LatestBooks = () => {
             />
             <Row className="justify-content-center">
                 {
-                    books.map(({img}, index) => 
-                        index < amountOfBooks && <BookCover key={index} bookImg={img} />
+                    books.map(({img, title, price}, index) => 
+                        index < amountOfBooks && <BookCover key={index} bookImg={img} bookTitle={title} bookPrice={price}/>
                     )
                 }
             </Row>
