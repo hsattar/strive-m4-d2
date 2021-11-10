@@ -3,7 +3,11 @@ import Button from "react-bootstrap/Button"
 
 const PaginationButtons = ({ amount }) => (
   <ButtonGroup className="mr-2" aria-label="First group">
-    <Button variant="outline-primary">1</Button>
+    {amount.map(btn => (
+      <Button variant="outline-primary" key={btn}>
+        {btn}
+      </Button>
+    ))}
   </ButtonGroup>
 )
 

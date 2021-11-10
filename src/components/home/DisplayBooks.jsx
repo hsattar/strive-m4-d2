@@ -18,6 +18,11 @@ const DisplayBooks = () => {
   const [bookOrder, setBookOrder] = useState("A-Z")
   const [pageButtons, setPageButtons] = useState(7)
 
+  const pageButtonsArray = []
+  for (let i = 0; i < pageButtons; i++) {
+    pageButtonsArray.push(i + 1)
+  }
+
   const handleCategoryChange = e => {
     setCategory(
       e.target.value.charAt(0).toUpperCase() + e.target.value.substr(1)
@@ -94,7 +99,7 @@ const DisplayBooks = () => {
 
   const handleResultsPerPage = e => {
     setAmountOfBooks([0, e.target.value])
-    setPageButtons(Number(books.length) / Number(e.target.value))
+    setPageButtons(Math.ceil(Number(books.length) / Number(e.target.value)))
   }
 
   return (
@@ -114,10 +119,10 @@ const DisplayBooks = () => {
             book.title.toLowerCase().includes(searchQuery.toLowerCase())
           )
           .map(
-            ({ img, title, price, asin }, index) =>
+            ({ img, title, price }, index) =>
               index < amountOfBooks[1] && (
                 <BookCover
-                  key={asin}
+                  key={index}
                   bookImg={img}
                   bookTitle={title}
                   bookPrice={price}
@@ -126,7 +131,7 @@ const DisplayBooks = () => {
           )}
       </Row>
       <Row className="d-flex justify-content-center my-3">
-        <PaginationButtons amount={pageButtons} />
+        <PaginationButtons amount={pageButtonsArray} />
       </Row>
     </Container>
   )
