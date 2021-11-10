@@ -20,27 +20,25 @@ const LatestBooks = () => {
     const handleCategoryChange = e => {
         setCategory(e.target.value.charAt(0).toUpperCase() + e.target.value.substr(1))
         switch (e.target.value) {
-            case 'horror':
+            case 'Horror':
                 setBooks(horrorBooks)
             break;
-            case 'history':
+            case 'History':
                 setBooks(historyBooks)
             break;
-            case 'fantasy':
+            case 'Fantasy':
                 setBooks(fantasyBooks)
             break;
-            case 'romance':
+            case 'Romance':
                 setBooks(romanceBooks)
             break;
-            case 'scifi':
+            case 'Scifi':
                 setBooks(scifiBooks)
             break;
             default:
                 alert('Looks Like Something went wrong')
         }
     }
-
-    // TODO: TURN THIS CODE INTO A FUNCTION WITH DIFFERENT PARAMETERS INCLUDING ONE FOR REVERSE, SET DEFAULT TO FALSE 
 
     const sortBookOrderLetters = (property, reverse = false) => {
         const bookProperty = []
@@ -65,16 +63,16 @@ const LatestBooks = () => {
     const handleSortOrder = e => {
         setBookOrder(e.target.value)
         switch (e.target.value) {
-            case 'a-z':
+            case 'A-Z':
                 setBooks(sortBookOrderLetters('title'))
             break;
-            case 'z-a':
+            case 'Z-A':
                 setBooks(sortBookOrderLetters('title', true))
             break;
-            case 'low-high':
+            case 'Low-High':
                 setBooks(sortBookOrderNumbers('price'))
             break;
-            case 'high-low':
+            case 'High-Low':
                 setBooks(sortBookOrderNumbers('price', true))
 
             break;
@@ -84,14 +82,7 @@ const LatestBooks = () => {
     }
 
     const handleSearch = e => {
-        if (e.target.value) {
-            const filteredBooks = books.filter(book => book.title.toLowerCase().includes(e.target.value.toLowerCase()))
-            setBooks(filteredBooks)
-            setAmountOfBooks(filteredBooks.length)
             setSearchQuery(e.target.value)
-        } else {
-            setSearchQuery(null)
-        }
     }
 
     const handleResultsPerPage = e => {
@@ -111,9 +102,10 @@ const LatestBooks = () => {
             />
             <Row className="justify-content-center">
                 {
-                    books.map(({img, title, price}, index) => 
-                        index < amountOfBooks && <BookCover key={index} bookImg={img} bookTitle={title} bookPrice={price}/>
-                    )
+                    books.filter(book => book.title.toLowerCase().includes(searchQuery.toLowerCase()))
+                    .map(({img, title, price, asin}, index) => 
+                        index < amountOfBooks && <BookCover key={asin} bookImg={img} bookTitle={title} bookPrice={price}/>
+                        )
                 }
             </Row>
         </Container>

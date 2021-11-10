@@ -1,4 +1,9 @@
 import { Row, FormControl } from "react-bootstrap"
+import SelectFormInput from "./SelectFormInput"
+
+const categories = ['Horror', 'History', 'Fantasy', 'Romance', 'Scifi']
+const sortOrder = ['A-Z', 'Z-A', 'Low-High', 'High-Low']
+const resultsAmount = ['24', '48', '96', 'All']
 
 const FilterOptions = ({ category, searchQuery, amountOfBooks, handleCategoryChange, handleSortOrder, handleSearch, handleResultsPerPage}) => (
     <>
@@ -11,29 +16,13 @@ const FilterOptions = ({ category, searchQuery, amountOfBooks, handleCategoryCha
         </Row>
         <Row className="justify-content-between mb-3">
             {
-                searchQuery ? <h2 className="pl-3">{amountOfBooks} Books For {searchQuery}</h2>
+                searchQuery ? <h2 className="pl-3">Showing Books For {searchQuery}</h2>
                 : <h2 className="pl-3">{amountOfBooks} {category} Books</h2> 
             }
             <div>
-                <select onChange={handleCategoryChange} name="category" id="category" className="mr-3">
-                    <option value="horror">Horror</option>
-                    <option value="history">History</option>
-                    <option value="fantasy">Fantasy</option>
-                    <option value="romance">Romance</option>
-                    <option value="scifi">Sci-Fi</option>
-                </select>
-                <select onChange={handleSortOrder} name="sort" id="sort" className="mr-3">
-                    <option value="a-z">Title (A-Z)</option>
-                    <option value="z-a">Title (Z-A)</option>
-                    <option value="low-high">Price (Low-High)</option>
-                    <option value="high-low">Price (High-Low)</option>
-                </select>
-                <select onChange={handleResultsPerPage} name="resultsAmount" id="resultsAmount" className="mr-3">
-                    <option value="24">24</option>
-                    <option value="48">48</option>
-                    <option value="96">96</option>
-                    <option value="150">All</option>
-                </select>
+                <SelectFormInput selectOptions={categories} handleCategoryChange={handleCategoryChange} />
+                <SelectFormInput selectOptions={sortOrder} handleCategoryChange={handleSortOrder} />
+                <SelectFormInput selectOptions={resultsAmount} handleCategoryChange={handleResultsPerPage} />
             </div>
         </Row>
     </>
