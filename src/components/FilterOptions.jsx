@@ -17,12 +17,12 @@ const FilterOptions = ({ category, searchQuery, amountOfBooks, handleCategoryCha
         <Row className="justify-content-between mb-3">
             {
                 searchQuery ? <h2 className="pl-3">Showing Books For {searchQuery}</h2>
-                : <h2 className="pl-3">{amountOfBooks} {category} Books</h2> 
+                : <h2 className="pl-3">{amountOfBooks[1]} {category} Books</h2> 
             }
             <div>
-                <SelectFormInput selectOptions={categories} handleCategoryChange={handleCategoryChange} />
-                <SelectFormInput selectOptions={sortOrder} handleCategoryChange={handleSortOrder} />
-                <SelectFormInput selectOptions={resultsAmount} handleCategoryChange={handleResultsPerPage} />
+                <SelectFormInput selectOptions={categories} handleSelectChange={handleCategoryChange} />
+                <SelectFormInput selectOptions={sortOrder} handleSelectChange={handleSortOrder} />
+                <SelectFormInput selectOptions={resultsAmount} handleSelectChange={handleResultsPerPage} />
             </div>
         </Row>
     </>

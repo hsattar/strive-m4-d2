@@ -1,11 +1,11 @@
-import LatestBooks from './LatestBooks';
-import Welcome from './Welcome';
+import DisplayBooks from "./DisplayBooks"
+import Welcome from "./Welcome"
 
 const Home = () => (
-    <>
-        <Welcome />
-        <LatestBooks />
-    </>
+  <>
+    <Welcome />
+    <DisplayBooks />
+  </>
 )
 
 export default Home
