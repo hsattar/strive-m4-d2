@@ -8,7 +8,7 @@ const resultsAmount = ["24", "48", "96", "150"]
 const FilterOptions = ({
   category,
   searchQuery,
-  amountOfBooks,
+  bookRange,
   handleCategoryChange,
   handleSortOrder,
   handleSearch,
@@ -28,7 +28,7 @@ const FilterOptions = ({
         <h2 className="pl-3">Showing Books For {searchQuery}</h2>
       ) : (
         <h2 className="pl-3">
-          {amountOfBooks[1]} {category} Books
+          {bookRange[1]} {category} Books
         </h2>
       )}
       <div>

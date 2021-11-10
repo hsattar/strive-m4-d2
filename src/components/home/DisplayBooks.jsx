@@ -14,7 +14,7 @@ const DisplayBooks = () => {
   const [category, setCategory] = useState("Horror")
   const [searchQuery, setSearchQuery] = useState("")
   const [books, setBooks] = useState(horrorBooks)
-  const [amountOfBooks, setAmountOfBooks] = useState([0, 24])
+  const [bookRange, setBookRange] = useState([0, 24])
   const [bookOrder, setBookOrder] = useState("A-Z")
   const [pageButtons, setPageButtons] = useState(7)
 
@@ -98,8 +98,16 @@ const DisplayBooks = () => {
   }
 
   const handleResultsPerPage = e => {
-    setAmountOfBooks([0, e.target.value])
+    setBookRange([0, e.target.value])
     setPageButtons(Math.ceil(Number(books.length) / Number(e.target.value)))
+  }
+
+  const handlePageBtnClick = e => {
+    const currentAmountOfResults = bookRange[1]
+    const pageNo = e.target.innerText
+    const startRange = (currentAmountOfResults * (pageNo - 1)) + 1
+    const endRange = currentAmountOfResults * pageNo
+    setBookRange([startRange, endRange])
   }
 
   return (
@@ -107,7 +115,7 @@ const DisplayBooks = () => {
       <FilterOptions
         category={category}
         searchQuery={searchQuery}
-        amountOfBooks={amountOfBooks}
+        bookRange={bookRange}
         handleCategoryChange={handleCategoryChange}
         handleSortOrder={handleSortOrder}
         handleSearch={handleSearch}
@@ -120,7 +128,7 @@ const DisplayBooks = () => {
           )
           .map(
             ({ img, title, price }, index) =>
-              index < amountOfBooks[1] && (
+              (index >= bookRange[0] && index < bookRange[1]) && (
                 <BookCover
                   key={index}
                   bookImg={img}
@@ -131,7 +139,10 @@ const DisplayBooks = () => {
           )}
       </Row>
       <Row className="d-flex justify-content-center my-3">
-        <PaginationButtons amount={pageButtonsArray} />
+        <PaginationButtons
+          amount={pageButtonsArray}
+          handlePageBtnClick={handlePageBtnClick}
+        />
       </Row>
     </Container>
   )
