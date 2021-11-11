@@ -1,22 +1,25 @@
 import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
-import {useState} from 'react'
+import { useState } from 'react'
 import MyModal from '../MyModal'
 
 const SingleBook = ({ bookImg, bookTitle, bookPrice, bookAsin }) => {
 
   const [selectedBook, setSelectedBook] = useState('')
   const [showModal, setShowModal] = useState(false)
+  const [bookComments, setBookComments] = useState([])
   
   const handleCloseModal = () => setShowModal(false)
   const handleShowModal = () => setShowModal(true)
 
-  const fetchData = async () => {
-    const response = await fetch('https://striveschool-api.herokuapp.com/api/comments/', {
+  const fetchData = async (book) => {
+    const response = await fetch(`https://striveschool-api.herokuapp.com/api/comments/${book}`, {
       headers: {
-        "Authorization": "abc"
+        "Authorization": process.env.REACT_APP_TOKEN
       }
     })
+    const data = await response.json()
+    setBookComments(data)
   }
 
   return (
@@ -25,6 +28,7 @@ const SingleBook = ({ bookImg, bookTitle, bookPrice, bookAsin }) => {
         <Card onClick={() => {
           setShowModal(true)
           setSelectedBook(bookTitle)
+          fetchData(bookAsin)
           }}>
           <Card.Img className="book-cover" variant="top" src={bookImg} />
           <Card.Body>
@@ -39,6 +43,7 @@ const SingleBook = ({ bookImg, bookTitle, bookPrice, bookAsin }) => {
         handleCloseModal={handleCloseModal}
         showModal={showModal}
         selectedBook={selectedBook}
+        bookComments={bookComments}
       />
 
     </>

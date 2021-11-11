@@ -126,8 +126,7 @@ const DisplayBooks = () => {
           .filter(book =>
             book.title.toLowerCase().includes(searchQuery.toLowerCase())
           )
-          .map(
-            ({ img, title, price, asin }, index) =>
+          .map(({ img, title, price, asin }, index) =>
               (index >= bookRange[0] && index < bookRange[1]) && (
                 <SingleBook
                   key={index}

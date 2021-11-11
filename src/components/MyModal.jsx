@@ -1,8 +1,7 @@
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
-import {useState} from 'react'
 
-const MyModal = ({ handleCloseModal, showModal, selectedBook }) => {
+const MyModal = ({ handleCloseModal, showModal, selectedBook, bookComments }) => {
   
     return (
       <>
@@ -10,7 +9,13 @@ const MyModal = ({ handleCloseModal, showModal, selectedBook }) => {
           <Modal.Header closeButton>
             <Modal.Title>{selectedBook}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Body>
+              {
+                  bookComments.map(({comment, _id: id}) => (
+                      <p key={id}>{comment}</p>
+                  ))
+              }
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="success" onClick={handleCloseModal}>Add Comment</Button>
             <Button variant="danger" onClick={handleCloseModal}>Close</Button>
