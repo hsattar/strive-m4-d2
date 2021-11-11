@@ -5,7 +5,8 @@ import MyModal from '../MyModal'
 
 const SingleBook = ({ bookImg, bookTitle, bookPrice, bookAsin }) => {
 
-  const [selectedBook, setSelectedBook] = useState('')
+  const [selectedBookTitle, setSelectedBookTitle] = useState('')
+  const [selectedBookAsin, setSelectedBookAsin] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [bookComments, setBookComments] = useState([])
   
@@ -27,7 +28,8 @@ const SingleBook = ({ bookImg, bookTitle, bookPrice, bookAsin }) => {
       <Col xs="12" sm="6" md="4" lg="3" className="mb-2">
         <Card onClick={() => {
           setShowModal(true)
-          setSelectedBook(bookTitle)
+          setSelectedBookTitle(bookTitle)
+          setSelectedBookAsin(bookAsin)
           fetchData(bookAsin)
           }}>
           <Card.Img className="book-cover" variant="top" src={bookImg} />
@@ -42,7 +44,8 @@ const SingleBook = ({ bookImg, bookTitle, bookPrice, bookAsin }) => {
         handleShowModal={handleShowModal}
         handleCloseModal={handleCloseModal}
         showModal={showModal}
-        selectedBook={selectedBook}
+        selectedBookTitle={selectedBookTitle}
+        selectedBookAsin={selectedBookAsin}
         bookComments={bookComments}
       />
 
