@@ -15,6 +15,7 @@ const DisplayBooks = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [books, setBooks] = useState(horrorBooks)
   const [bookRange, setBookRange] = useState([0, 24])
+  const [resultsPerPage, setResultsPerPage] = useState(24)
   const [bookOrder, setBookOrder] = useState("A-Z")
   const [pageButtons, setPageButtons] = useState(7)
   const [selectedPage, setSelectedPage] = useState(1)
@@ -100,16 +101,20 @@ const DisplayBooks = () => {
 
   const handleResultsPerPage = e => {
     setBookRange([0, e.target.value])
+    setResultsPerPage(e.target.value)
     setPageButtons(Math.ceil(Number(books.length) / Number(e.target.value)))
+    setSelectedPage(1)
   }
 
   const handlePageBtnClick = e => {
-    const currentAmountOfResults = bookRange[1]
+    const currentAmountOfResults = resultsPerPage
     const pageNo = e.target.innerText
-    const startRange = (currentAmountOfResults * (pageNo - 1)) + 1
+    const startRange = (currentAmountOfResults * (pageNo - 1))
     const endRange = currentAmountOfResults * pageNo
     setBookRange([startRange, endRange])
+    // console.log(e.target.innerText)
     setSelectedPage(e.target.innerText)
+    // console.log(selectedPage)
   }
 
   return (
@@ -136,6 +141,7 @@ const DisplayBooks = () => {
                   bookTitle={title}
                   bookPrice={price}
                   bookAsin={asin}
+                  bookNum={index}
                 />
               )
           )}

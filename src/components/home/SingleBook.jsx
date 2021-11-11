@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col"
 import { useState } from 'react'
 import MyModal from '../MyModal'
 
-const SingleBook = ({ bookImg, bookTitle, bookPrice, bookAsin }) => {
+const SingleBook = ({ bookImg, bookTitle, bookPrice, bookAsin, bookNum }) => {
 
   const [selectedBookTitle, setSelectedBookTitle] = useState('')
   const [selectedBookAsin, setSelectedBookAsin] = useState('')
@@ -39,7 +39,7 @@ const SingleBook = ({ bookImg, bookTitle, bookPrice, bookAsin }) => {
           }}>
           <Card.Img className="book-cover" variant="top" src={bookImg} />
           <Card.Body>
-            <Card.Text>{bookTitle}</Card.Text>
+            <Card.Text>{bookNum + 1}) {bookTitle}</Card.Text>
             <Card.Text>£{bookPrice}</Card.Text>
           </Card.Body>
         </Card>
