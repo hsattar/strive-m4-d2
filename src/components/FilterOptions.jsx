@@ -28,7 +28,7 @@ const FilterOptions = ({
         <h2 className="pl-3">Showing Books For {searchQuery}</h2>
       ) : (
         <h2 className="pl-3">
-          {bookRange[1]} {category} Books
+          {bookRange[1] - bookRange[0]} {category} Books
         </h2>
       )}
       <div>

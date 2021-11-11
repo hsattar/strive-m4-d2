@@ -6,7 +6,7 @@ import romanceBooks from "../../data/romance.json"
 import scifiBooks from "../../data/scifi.json"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
-import BookCover from "./BookCover"
+import SingleBook from "./SingleBook"
 import FilterOptions from "../FilterOptions"
 import PaginationButtons from "../PaginationButtons"
 
@@ -127,13 +127,14 @@ const DisplayBooks = () => {
             book.title.toLowerCase().includes(searchQuery.toLowerCase())
           )
           .map(
-            ({ img, title, price }, index) =>
+            ({ img, title, price, asin }, index) =>
               (index >= bookRange[0] && index < bookRange[1]) && (
-                <BookCover
+                <SingleBook
                   key={index}
                   bookImg={img}
                   bookTitle={title}
                   bookPrice={price}
+                  bookAsin={asin}
                 />
               )
           )}
