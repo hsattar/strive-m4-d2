@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import Comment from './Comment'
 
 const MyModal = ({ handleCloseModal, showModal, selectedBookTitle, selectedBookAsin, bookComments }) =>  {
 
@@ -37,11 +38,6 @@ const MyModal = ({ handleCloseModal, showModal, selectedBookTitle, selectedBookA
         console.error(error)
         }
     }
-
-    const handledelete = () => {
-        alert('delete this book to do')
-    }
-
     
     return (
         <Modal show={showModal} onHide={handleCloseModal}>
@@ -52,10 +48,7 @@ const MyModal = ({ handleCloseModal, showModal, selectedBookTitle, selectedBookA
                 {
                      !addComment ? (
                          bookComments.length > 0 ? bookComments.map(({comment, rate, _id: id}) => (
-                        <div className="d-flex justify-content-between my-2"> 
-                            <p key={id}>{comment} - Rating {rate}/5</p>
-                            <Button variant="danger" onClick={handledelete}>X</Button>
-                        </div> 
+                            <Comment key={id} comment={comment} rate={rate} id={id}/>
                     )) 
                     : ( <p>No comments to show for this book</p> )
                     ) : (
