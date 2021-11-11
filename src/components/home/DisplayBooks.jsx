@@ -113,8 +113,12 @@ const DisplayBooks = () => {
     const endRange = currentAmountOfResults * pageNo
     setBookRange([startRange, endRange])
     // console.log(e.target.innerText)
-    setSelectedPage(e.target.innerText)
+    setSelectedPage(Number(e.target.innerText))
     // console.log(selectedPage)
+    window.scrollTo({
+      top: 300,
+      behavior: 'instant'
+    })
   }
 
   return (
