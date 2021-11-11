@@ -17,6 +17,7 @@ const DisplayBooks = () => {
   const [bookRange, setBookRange] = useState([0, 24])
   const [bookOrder, setBookOrder] = useState("A-Z")
   const [pageButtons, setPageButtons] = useState(7)
+  const [selectedPage, setSelectedPage] = useState(1)
 
   const pageButtonsArray = []
   for (let i = 0; i < pageButtons; i++) {
@@ -108,6 +109,7 @@ const DisplayBooks = () => {
     const startRange = (currentAmountOfResults * (pageNo - 1)) + 1
     const endRange = currentAmountOfResults * pageNo
     setBookRange([startRange, endRange])
+    setSelectedPage(e.target.innerText)
   }
 
   return (
@@ -142,6 +144,7 @@ const DisplayBooks = () => {
         <PaginationButtons
           amount={pageButtonsArray}
           handlePageBtnClick={handlePageBtnClick}
+          selectedPage={selectedPage}
         />
       </Row>
     </Container>

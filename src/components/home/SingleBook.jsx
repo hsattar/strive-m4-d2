@@ -14,13 +14,18 @@ const SingleBook = ({ bookImg, bookTitle, bookPrice, bookAsin }) => {
   const handleShowModal = () => setShowModal(true)
 
   const fetchData = async (book) => {
-    const response = await fetch(`https://striveschool-api.herokuapp.com/api/comments/${book}`, {
+    try {
+      const response = await fetch(`https://striveschool-api.herokuapp.com/api/comments/${book}`, {
       headers: {
         "Authorization": process.env.REACT_APP_TOKEN
       }
     })
+    if (!response.ok) throw new Error('Fetch Failed') 
     const data = await response.json()
     setBookComments(data)
+  } catch (error) {
+    console.error(error)
+  }
   }
 
   return (

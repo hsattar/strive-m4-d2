@@ -9,7 +9,7 @@ const MyModal = ({ handleCloseModal, showModal, selectedBookTitle, selectedBookA
     const [newComment, setNewComment] = useState({
         comment: '',
         rate: '',
-        elementId: 'selectedBookAsin'
+        elementId: ''
     })
 
 
@@ -19,7 +19,8 @@ const MyModal = ({ handleCloseModal, showModal, selectedBookTitle, selectedBookA
     }
 
     const postComment = async () => {
-        const response = await fetch('https://striveschool-api.herokuapp.com/api/comments/', {
+        try {
+            const response = await fetch('https://striveschool-api.herokuapp.com/api/comments/', {
             method: 'POST',
             body: JSON.stringify(newComment),
             headers: {
@@ -32,6 +33,13 @@ const MyModal = ({ handleCloseModal, showModal, selectedBookTitle, selectedBookA
             setAddComment(false)
             handleCloseModal()
         }
+    } catch (error) {
+        console.error(error)
+        }
+    }
+
+    const handledelete = () => {
+        alert('delete this book to do')
     }
 
     
@@ -44,7 +52,10 @@ const MyModal = ({ handleCloseModal, showModal, selectedBookTitle, selectedBookA
                 {
                      !addComment ? (
                          bookComments.length > 0 ? bookComments.map(({comment, rate, _id: id}) => (
-                        <p key={id}>{comment} - Rating {rate}/5</p>
+                        <div className="d-flex justify-content-between my-2"> 
+                            <p key={id}>{comment} - Rating {rate}/5</p>
+                            <Button variant="danger" onClick={handledelete}>X</Button>
+                        </div> 
                     )) 
                     : ( <p>No comments to show for this book</p> )
                     ) : (
