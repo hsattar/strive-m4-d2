@@ -9,7 +9,7 @@ const MyModal = ({ handleCloseModal, showModal, selectedBookTitle, selectedBookA
     const [newComment, setNewComment] = useState({
         comment: '',
         rate: '',
-        elementId: selectedBookAsin
+        elementId: 'selectedBookAsin'
     })
 
 
@@ -30,6 +30,7 @@ const MyModal = ({ handleCloseModal, showModal, selectedBookTitle, selectedBookA
         if (response.ok) {
             alert('Comment Posted Successfully')
             setAddComment(false)
+            handleCloseModal()
         }
     }
 
@@ -37,7 +38,7 @@ const MyModal = ({ handleCloseModal, showModal, selectedBookTitle, selectedBookA
     return (
         <Modal show={showModal} onHide={handleCloseModal}>
             <Modal.Header closeButton>
-            <Modal.Title>{selectedBookAsin}</Modal.Title>
+            <Modal.Title>{selectedBookTitle}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {
@@ -49,15 +50,15 @@ const MyModal = ({ handleCloseModal, showModal, selectedBookTitle, selectedBookA
                     ) : (
                         <Form onSubmit={handlePostComment}>
 
-                            <Form.Group>
+                            {/* <Form.Group>
                                 <Form.Label>Book Asin</Form.Label>
                                 <Form.Control
-                                    type="text"
+                                    type="hidden"
                                     value={selectedBookAsin}
                                     required
                                     readOnly
                                 />
-                            </Form.Group>
+                            </Form.Group> */}
 
 
                             <Form.Group>
@@ -67,7 +68,7 @@ const MyModal = ({ handleCloseModal, showModal, selectedBookTitle, selectedBookA
                                     placeholder="Enter Comment" 
                                     required
                                     value={newComment.comment}
-                                    onChange={e => setNewComment({...newComment, comment: e.target.value})}   
+                                    onChange={e => setNewComment({...newComment, elementId: selectedBookAsin, comment: e.target.value})}   
                                 />
                             </Form.Group>
 
