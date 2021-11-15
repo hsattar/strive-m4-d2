@@ -21,7 +21,8 @@ const Home = () => {
         <Container fluid>
           <Row>
             <Col md='3' className='text-center'>
-              <CommentArea 
+              <CommentArea
+                className='sidebar'
                 bookAsin={selectedBookAsin}
               />
             </Col>

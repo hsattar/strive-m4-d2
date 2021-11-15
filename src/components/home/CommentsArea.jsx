@@ -29,8 +29,8 @@ const CommentArea = ({ bookAsin }) => {
     return (
         <>
             <h2 className='pt-5 mt-2'>Comments</h2> 
-            <p className='mt-4'>Select a Book to see the comments.</p>
-            <Comments bookComments={bookComments}/>
+            {bookComments.length > 600 && <p className='mt-4'>Select a Book to see the comments.</p>}
+            {bookComments.length < 600 && <Comments bookComments={bookComments} bookAsin={bookAsin}/>}
         </>
     )
 }

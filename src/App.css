@@ -15,3 +15,12 @@ select {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
+.sidebar {
+  position: fixed;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow: scroll;
+}
