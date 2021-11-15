@@ -10,7 +10,7 @@ import SingleBook from "./SingleBook"
 import FilterOptions from "../FilterOptions"
 import PaginationButtons from "../PaginationButtons"
 
-const DisplayBooks = () => {
+const DisplayBooks = ({ handleBookAsinClick }) => {
   const [category, setCategory] = useState("Horror")
   const [searchQuery, setSearchQuery] = useState("")
   const [books, setBooks] = useState(horrorBooks)
@@ -146,6 +146,7 @@ const DisplayBooks = () => {
                   bookPrice={price}
                   bookAsin={asin}
                   bookNum={index}
+                  handleBookAsinClick={handleBookAsinClick}
                 />
               )
           )}
