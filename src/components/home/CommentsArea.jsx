@@ -1,8 +1,8 @@
 const CommentArea = () => {
     return (
         <>
-            <h2 className='pt-5 mt-1'>Comments</h2> 
-            <p>Select a Book to see the comments.</p>
+            <h2 className='pt-5 mt-2'>Comments</h2> 
+            <p className='mt-4'>Select a Book to see the comments.</p>
         </>
     )
 }
