@@ -1,6 +1,10 @@
-const Comments = () => {
+const Comments = ({ bookComments }) => {   
     return (
-        <p>Hi</p>
+        <>
+        {bookComments.map(comment => (
+             <p>{comment.comment}</p>
+        ))}
+        </>
     )
 }
 

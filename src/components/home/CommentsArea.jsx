@@ -1,9 +1,11 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Comments from "../Comments"
 
-const CommentArea = () => {
+const CommentArea = ({ bookAsin }) => {
 
     const [bookComments, setBookComments] = useState([])
+
+    console.log(bookComments)
 
     const fetchData = async (book) => {
         try {
@@ -20,13 +22,15 @@ const CommentArea = () => {
         }
       }
 
-    // fetchData(bookAsin)
+    useEffect(() => {
+        fetchData(bookAsin)
+    }, [bookAsin])
 
     return (
         <>
             <h2 className='pt-5 mt-2'>Comments</h2> 
             <p className='mt-4'>Select a Book to see the comments.</p>
-            <Comments />
+            <Comments bookComments={bookComments}/>
         </>
     )
 }

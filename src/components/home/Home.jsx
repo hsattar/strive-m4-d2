@@ -11,7 +11,6 @@ const Home = () => {
   const [selectedBookAsin, setSelectedBookAsin] = useState('')
 
   const randomFunc2 = (e) => {
-    console.log(e)
     setSelectedBookAsin(e)
   }
  
@@ -23,7 +22,7 @@ const Home = () => {
           <Row>
             <Col md='3' className='text-center'>
               <CommentArea 
-              
+                bookAsin={selectedBookAsin}
               />
             </Col>
             <Col md='9'>
