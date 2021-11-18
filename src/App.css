@@ -24,3 +24,7 @@ select {
   left: 0;
   overflow: scroll;
 }
+
+.register-from {
+  min-height: 80vh !important;
+}

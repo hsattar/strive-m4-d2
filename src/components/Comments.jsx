@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 const Comments = ({ bookComments, bookAsin }) => {
     
+    const [comments, setComments] = useState(null)
     const [addComment, setAddComment] = useState(false)
     const [newComment, setNewComment] = useState({
         comment: '',
@@ -33,6 +34,25 @@ const Comments = ({ bookComments, bookAsin }) => {
         }
 
     }
+
+    const fetchComments = async (book) => {
+        try {
+          const response = await fetch(`https://striveschool-api.herokuapp.com/api/comments/${book}`, {
+            headers: {
+                "Authorization": process.env.REACT_APP_TOKEN
+            }
+            })
+            if (!response.ok) throw new Error('Fetch Failed') 
+            const data = await response.json()
+            setComments(data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchComments(bookAsin)
+    }, [newComment])
 
     return (
         <>
