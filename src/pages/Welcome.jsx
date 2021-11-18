@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -21,9 +22,27 @@ const Welcome = () => {
     const [passwordError, setPasswordError] = useState(false)
     const [password2Error, setPassword2Error] = useState(false)
 
-    const handleSubmit = e => {
-        e.preventDefault()
+    const validateForm = () => {
 
+        setNameError(false)
+        setSurnameError(false)
+        setEmailError(true)
+        setPasswordError(true)
+        setPassword2Error(false)
+
+        if (name.length < 1) setNameError(true)
+        if (surname.length < 2) setSurnameError(true)
+        if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) setEmailError(false)
+        if (password.match(/[a-z]/g) && password.match(/[0-9]/g) && password.length >= 8) setPasswordError(false)
+        if (password2 !== password || password2.length < 1) setPassword2Error(true)
+
+        if (nameError === false && surnameError === false && emailError === false && passwordError === false && password2Error === false) {
+
+        }
+    }
+
+    const handleSubmit = e => {
+        alert('submitted')
     }
 
     return (
@@ -38,9 +57,13 @@ const Welcome = () => {
                             variant="outlined"
                             fullWidth 
                             required
+                            helperText='Must be atleast 2 characters'
                             error={nameError}
                             value={name}
-                            onChange={e => setName(e.target.value)}
+                            onChange={e => {
+                                setName(e.target.value)
+                                validateForm()
+                            }}
                         />
 
                         <TextField 
@@ -49,9 +72,13 @@ const Welcome = () => {
                             variant="outlined"
                             fullWidth 
                             required
+                            helperText='Must be atleast 3 characters'
                             error={surnameError}
                             value={surname}
-                            onChange={e => setSurname(e.target.value)}
+                            onChange={e => {
+                                setSurname(e.target.value)
+                                validateForm()
+                            }}
                         />
 
                         <TextField 
@@ -60,9 +87,13 @@ const Welcome = () => {
                             variant="outlined"
                             fullWidth 
                             required
+                            helperText='Must be a valid email'
                             error={emailError}
                             value={email}
-                            onChange={e => setEmail(e.target.value)}
+                            onChange={e => {
+                                setEmail(e.target.value)
+                                validateForm()
+                            }}
                         />
 
                         <TextField 
@@ -71,9 +102,13 @@ const Welcome = () => {
                             variant="outlined"
                             fullWidth 
                             required
+                            helperText='Password must be at least 8 characters and contain 1 letter and 1 number'
                             error={passwordError}
                             value={password}
-                            onChange={e => setPassword(e.target.value)}
+                            onChange={e => {
+                                setPassword(e.target.value)
+                                validateForm()
+                            }}
                         />
 
                         <TextField 
@@ -82,12 +117,17 @@ const Welcome = () => {
                             variant="outlined"
                             fullWidth 
                             required
+                            helperText='Passwords must match'
                             error={password2Error}
                             value={password2}
-                            onChange={e => setPassword2(e.target.value)}
+                            onChange={e => {
+                                setPassword2(e.target.value)
+                                validateForm()
+                            }}
                         />
 
                         <div className='d-flex justify-content-center'>
+                            {/* <Button type='submit' variant="contained" disabled>Register</Button> */}
                             <Button type='submit' variant="contained">Register</Button>
                         </div>
                     </Box>
